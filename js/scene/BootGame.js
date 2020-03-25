@@ -39,38 +39,12 @@ export default class bootGame extends Phaser.Scene {
     );
 
     this.load.audio("gameover", "assets/gameover.mp3");
+
+    this.load.audio("shoot", "assets/shootSound.mp3");
+
+    this.load.audio("intro", "assets/introSound.mp3");
   }
   create() {
-    this.add.image(
-      this.game.config.width / 2,
-      this.game.config.height / 2,
-      "bg"
-    );
-
-    this.cursors = this.input.keyboard.createCursorKeys();
-
-    this.add.bitmapText(120, 100, "pixelFont", "Welcome to Space Conquer", 50);
-
-    this.add.bitmapText(170, 300, "pixelFont", "PRESS SPACE TO START", 45);
-
-    this.add.image(210, 510, "bonus");
-    this.add.bitmapText(230, 498, "pixelFont", ": BOOST", 50);
-    this.add.bitmapText(
-      200,
-      540,
-      "pixelFont",
-      "<- : MOVE LEFT\n-> : MOVE RIGHT\nSPACE : Fire",
-      50
-    );
-  }
-
-  update() {
-    if (this.cursors.space.isDown) {
-      //stops the presente scene
-      this.scene.stop();
-
-      //starts PlayGame scene
-      this.scene.start("PlayGame");
-    }
+    this.scene.start("IntroGame");
   }
 }

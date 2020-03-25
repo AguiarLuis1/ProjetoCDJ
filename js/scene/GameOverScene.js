@@ -28,7 +28,7 @@ export default class GameOverScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
     this.composeHUD();
 
-    this.gameOverSound = this.sound.add("gameover", { volume: 0.1 });
+    this.gameOverSound = this.sound.add("gameover", { volume: 0.15 });
 
     this.gameOverSound.play();
   }

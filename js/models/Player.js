@@ -50,8 +50,9 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       if (this.bullets.children.size > this.bulletsMaxsize) {
         console.log("Group size failed");
       }
-      if (this.fireSound) {
-        this.fireSound.play();
+      //som de tiro
+      if (this.shootSound) {
+        this.shootSound.play();
       }
     }
     //interar por todas as balas para verificar se estão fora do ecra

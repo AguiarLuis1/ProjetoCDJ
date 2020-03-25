@@ -142,6 +142,12 @@ export default class playGame extends Phaser.Scene {
         this.scene.start("GameOver", { score: this.score });
       }
     });
+
+    let shootSound = this.sound.add("shoot", {
+      volume: 0.07
+    });
+
+    this.player.shootSound = shootSound;
   }
   update(time, delta) {
     this.player.update(this.cursors, time);

@@ -1,6 +1,7 @@
 import bootGame from "./scene/BootGame.js";
 import playGame from "./scene/PlayGame.js";
 import gameOver from "./scene/GameOverScene.js";
+import introGame from "./scene/IntroGame.js";
 
 var game;
 window.onload = function() {
@@ -8,7 +9,7 @@ window.onload = function() {
     width: 650,
     height: 800,
     backgroundColor: 0x000000,
-    scene: [bootGame, playGame, gameOver],
+    scene: [bootGame, playGame, gameOver, introGame],
     physics: {
       default: "arcade",
       arcade: {
