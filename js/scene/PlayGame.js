@@ -1,6 +1,7 @@
 import Player from "../models/Player.js";
 import EnemiesGroup from "../models/EnemiesGroup.js";
 import Bonus from "../models/Bonus.js";
+import Boss from "../models/Boss.js";
 
 export default class playGame extends Phaser.Scene {
   constructor() {
@@ -148,6 +149,9 @@ export default class playGame extends Phaser.Scene {
     });
 
     this.player.shootSound = shootSound;
+
+    //score para saltar para o boss
+    this.bossScore = 200;
   }
   update(time, delta) {
     this.player.update(this.cursors, time);
@@ -162,6 +166,12 @@ export default class playGame extends Phaser.Scene {
     }, this);
 
     this.enemySpawnCounter += delta; //nº de enemies aumenta ao longo do tempo
+
+    //saltar para o boss
+    if (this.score >= this.bossScore) {
+      this.scene.stop();
+      this.scene.start("Boss", { lives: this.player.lives, score: this.score });
+    }
   }
 
   spawnNewEnemies() {

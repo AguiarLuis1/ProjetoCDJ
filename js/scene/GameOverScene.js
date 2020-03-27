@@ -1,5 +1,3 @@
-import Bird from "../models/Player.js";
-
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
     super("GameOver");

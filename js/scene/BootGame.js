@@ -11,6 +11,8 @@ export default class bootGame extends Phaser.Scene {
 
     this.load.image("player", "assets/player.png");
 
+    this.load.image("boss", "assets/boss.png");
+
     this.load.spritesheet("nave", "assets/nave.png", {
       frameWidth: 16,
       frameHeight: 16
@@ -43,6 +45,8 @@ export default class bootGame extends Phaser.Scene {
     this.load.audio("shoot", "assets/shootSound.mp3");
 
     this.load.audio("intro", "assets/introSound.mp3");
+
+    this.load.audio("victory", "assets/victory.mp3");
   }
   create() {
     this.scene.start("IntroGame");
