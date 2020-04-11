@@ -23,12 +23,12 @@ export default class Boss extends Phaser.Physics.Arcade.Image {
 
     this.bullets = this.scene.physics.add.group({
       maxSize: this.bulletsMaxsize,
-      classType: Bullet
+      classType: Bullet,
     });
   }
   update() {
     //interar por todas as balas para verificar se estão fora do ecra
-    this.bullets.children.iterate(function(bullet) {
+    this.bullets.children.iterate(function (bullet) {
       if (bullet.isOutsideCanvas()) {
         //bullet.active = false;
         this.bullets.killAndHide(bullet);
@@ -40,6 +40,7 @@ export default class Boss extends Phaser.Physics.Arcade.Image {
       let bullet = this.bullets.getFirstDead(true, this.x, this.y);
 
       if (bullet) {
+        bullet.tint = 0xff6600; //mudar a côr da bala do boss
         bullet.setVelocity(Phaser.Math.Between(-75, 75), 200);
         bullet.active = true;
         bullet.visible = true;
@@ -55,5 +56,15 @@ export default class Boss extends Phaser.Physics.Arcade.Image {
         this.shootSound.play();
       }
     }
+  }
+  //mudar a cor do boss para vermelho quando leva tiro
+  getShooted() {
+    this.tint = this.tint = 0xf50c0c; //vermelho claro
+    this.scene.time.addEvent({
+      delay: 100,
+      callback: () => {
+        this.tint = 0xffffff; //reset á cor
+      },
+    });
   }
 }

@@ -31,7 +31,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.bullets = this.scene.physics.add.group({
       maxSize: this.bulletsMaxsize,
-      classType: Bullet
+      classType: Bullet,
     });
   }
 
@@ -56,7 +56,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       }
     }
     //interar por todas as balas para verificar se estão fora do ecra
-    this.bullets.children.iterate(function(bullet) {
+    this.bullets.children.iterate(function (bullet) {
       if (bullet.isOutsideCanvas()) {
         //bullet.active = false;
         this.bullets.killAndHide(bullet);
@@ -79,7 +79,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     }
   }
 
-  explode() {
+  kill() {
     if (this.alpha < 1) {
       //se estiver no tempo de respawn
       return;
@@ -99,7 +99,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       delay: 2000,
       callback: this.resetPlayer,
       callbackScope: this,
-      loop: false
+      loop: false,
     });
   }
 
@@ -112,7 +112,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       delay: 2500,
       callback: () => {
         this.alpha = 1;
-      }
+      },
     });
   }
 }

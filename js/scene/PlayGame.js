@@ -67,7 +67,7 @@ export default class playGame extends Phaser.Scene {
         if (enemy) {
           enemy.spawn();
         }
-      }
+      },
     };
     this.enemyTimer = this.time.addEvent(this.enemySpawnConfig);
 
@@ -108,17 +108,34 @@ export default class playGame extends Phaser.Scene {
 
     /*
       Quando o bonus passa por cima do player
-      -> Bonus é "empurrado para cima"
+      -> Bonus desaparece durante 5s e dá respawn num sito aleatorio
       -> Player fica com o dobro de velocidade, metade do tamanho e metade do firerate durante 2s
     */
     this.physics.add.overlap(this.bonus, this.player, () => {
+      this.bonus.disableBody(false, true); //desativa e esconde (this.active fica a false)
+      this.time.addEvent({
+        delay: 5000,
+        repeat: 0,
+        callback: () => {
+          this.bonus.enableBody(
+            true,
+            Phaser.Math.Between(0, this.game.config.width),
+            Phaser.Math.Between(0, this.game.config.height / 2),
+            true,
+            true
+          ); //ativa novamente o bonus no sitio indicado
+
+          this.bonus.setVelocity(
+            Phaser.Math.Between(-150, 150),
+            Phaser.Math.Between(-500, -20)
+          );
+        },
+      });
+
       this.player.setScale((this.player.scaleX + this.player.scaleY) / 4); //para ficar metade do tamanho
       this.player.velocity = this.player.velocity * 2;
       this.player.fireRate = this.player.fireRate / 2;
-      this.bonus.setVelocity(
-        Phaser.Math.Between(-150, 150),
-        Phaser.Math.Between(-500, 0)
-      );
+
       this.time.addEvent({
         delay: 2000,
         repeat: 0,
@@ -126,7 +143,7 @@ export default class playGame extends Phaser.Scene {
           this.player.velocity = this.player.velocity / 2;
           this.player.setScale(this.player.scaleX + this.player.scaleY);
           this.player.fireRate = this.player.fireRate * 2;
-        }
+        },
       });
     });
     /*
@@ -134,7 +151,7 @@ export default class playGame extends Phaser.Scene {
     Se fôr a ultima vida é mostrada a tela de GameOver
     */
     this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
-      player.explode();
+      player.kill();
       this.livesLabel.text = "LIVES " + this.player.lives;
 
       if (this.player.lives <= 0) {
@@ -145,7 +162,7 @@ export default class playGame extends Phaser.Scene {
     });
 
     let shootSound = this.sound.add("shoot", {
-      volume: 0.07
+      volume: 0.07,
     });
 
     this.player.shootSound = shootSound;
@@ -158,7 +175,7 @@ export default class playGame extends Phaser.Scene {
 
     this.bg.tilePositionY -= 1; //movimentar o bg
 
-    this.enemies.children.iterate(function(enemy) {
+    this.enemies.children.iterate(function (enemy) {
       if (enemy.y > this.game.config.height) {
         //bullet.active = false;
         this.enemies.killAndHide(enemy);

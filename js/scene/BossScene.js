@@ -30,7 +30,7 @@ export default class BossScene extends Phaser.Scene {
     this.boss = new Boss(this);
 
     let shootSound = this.sound.add("shoot", {
-      volume: 0.07
+      volume: 0.07,
     });
 
     this.player.shootSound = shootSound;
@@ -52,8 +52,8 @@ export default class BossScene extends Phaser.Scene {
         //mudar cena!
       }
       this.player.bullets.killAndHide(bullet);
-
       bullet.removeFromScreen();
+      this.boss.getShooted();
       this.boss.life--;
     });
 
@@ -61,7 +61,7 @@ export default class BossScene extends Phaser.Scene {
       this.player,
       this.boss.bullets,
       (player, bullet) => {
-        player.explode();
+        player.kill();
         this.livesLabel.text = "LIVES " + this.player.lives;
 
         if (this.player.lives <= 0) {
