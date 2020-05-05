@@ -14,11 +14,11 @@ export default class Boss extends Phaser.Physics.Arcade.Image {
     this.setBounce(1); //para saltar na parede
 
     //nº de tiros que tem de levar para morrer
-    this.life = 50;
+    this.life = 100;
 
     //lógica para as balas
     this.timeToShoot = 0;
-    this.fireRate = 600;
+    this.fireRate = 450;
     this.bulletsMaxsize = 5;
 
     this.bullets = this.scene.physics.add.group({
@@ -40,7 +40,7 @@ export default class Boss extends Phaser.Physics.Arcade.Image {
       let bullet = this.bullets.getFirstDead(true, this.x, this.y);
 
       if (bullet) {
-        bullet.tint = 0xff6600; //mudar a côr da bala do boss
+        bullet.tint = 0x380b61; //mudar a côr da bala do boss
         bullet.setVelocity(Phaser.Math.Between(-75, 75), 200);
         bullet.active = true;
         bullet.visible = true;

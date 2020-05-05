@@ -22,10 +22,10 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         key: "nave1_anim",
         frames: this.scene.anims.generateFrameNumbers("nave", {
           start: 0,
-          end: 2
+          end: 2,
         }),
         frameRate: 20,
-        repeat: -1
+        repeat: -1,
       });
       this.play("nave1_anim");
     } else if (typeOfShip == 1) {
@@ -33,10 +33,10 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         key: "nave2_anim",
         frames: this.scene.anims.generateFrameNumbers("nave2", {
           start: 0,
-          end: 2
+          end: 2,
         }),
         frameRate: 20,
-        repeat: -1
+        repeat: -1,
       });
       this.play("nave2_anim");
     } else {
@@ -44,10 +44,10 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
         key: "nave3_anim",
         frames: this.scene.anims.generateFrameNumbers("nave3", {
           start: 0,
-          end: 2
+          end: 2,
         }),
         frameRate: 20,
-        repeat: -1
+        repeat: -1,
       });
       this.play("nave3_anim");
     }
@@ -56,7 +56,7 @@ export default class Enemy extends Phaser.Physics.Arcade.Sprite {
   spawn() {
     this.visible = true;
     this.active = true;
-    this.setVelocityY(50);
+    this.setVelocityY(Phaser.Math.Between(150, 400));
   }
   resetShipPos() {
     this.y = 0;

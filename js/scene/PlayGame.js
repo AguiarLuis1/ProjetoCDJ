@@ -19,7 +19,7 @@ export default class playGame extends Phaser.Scene {
 
     this.player = new Player(this);
 
-    this.enemies = new EnemiesGroup(this.physics.world, this, 20);
+    this.enemies = new EnemiesGroup(this.physics.world, this, 35);
 
     this.bonus = new Bonus(this);
 
@@ -59,7 +59,6 @@ export default class playGame extends Phaser.Scene {
       delay: this.enemyTimerDelay,
       repeat: -1,
       callback: () => {
-        let margin = 0;
         let x = Phaser.Math.Between(0, this.game.config.width);
         let y = -50; // para não spawnarem mas aparecerem
         //now it does not need to create a new Enemy object (false argument) because they are created with the scene creation
@@ -77,20 +76,17 @@ export default class playGame extends Phaser.Scene {
       this.player.bullets,
       this.enemies,
       (bullet, enemy) => {
-        //bullet.destroy(); //destroy method removes object from the memory
-        //enemy.destroy();
-
         this.enemies.killAndHide(enemy);
         this.player.bullets.killAndHide(bullet);
 
-        //prevent collision with multiple enemies by removing the bullet from screen and stoping it
+        //para prevenir colisão com multiplos inimigos remove-se a bala do ecra removemos a velocidade
         bullet.removeFromScreen();
 
-        //remove enemy from screen and stop it
+        //remove os inimigos do ecra e para-os
         enemy.removeFromScreen();
 
         this.score += 25;
-        //update the score text
+        //update do texto do score
         this.scoreLabel.text = "SCORE " + this.score;
       }
     );
@@ -168,7 +164,7 @@ export default class playGame extends Phaser.Scene {
     this.player.shootSound = shootSound;
 
     //score para saltar para o boss
-    this.bossScore = 200;
+    this.bossScore = 5000;
   }
   update(time, delta) {
     this.player.update(this.cursors, time);
@@ -177,7 +173,6 @@ export default class playGame extends Phaser.Scene {
 
     this.enemies.children.iterate(function (enemy) {
       if (enemy.y > this.game.config.height) {
-        //bullet.active = false;
         this.enemies.killAndHide(enemy);
       }
     }, this);
@@ -194,7 +189,6 @@ export default class playGame extends Phaser.Scene {
   spawnNewEnemies() {
     const seconds = 10;
     if (this.enemySpawnCounter >= seconds * 1000) {
-      console.log("remove timer");
       this.enemySpawnCounter = 0;
       this.enemyTimer.remove(false);
       this.enemySpawnConfig.delay -= 50;

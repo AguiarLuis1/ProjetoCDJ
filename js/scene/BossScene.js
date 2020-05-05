@@ -77,7 +77,7 @@ export default class BossScene extends Phaser.Scene {
     this.player.update(this.cursors, time);
     this.boss.update();
 
-    this.bg.tilePositionY -= 5;
+    this.bg.tilePositionY -= 10;
 
     this.boss.shoot(time); //dispara sempre que tem balas
   }

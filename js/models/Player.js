@@ -11,23 +11,21 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.scene.add.existing(this);
 
-    //enable physics to sprite
+    //ativa as fisicas
     this.scene.physics.world.enable(this);
 
     //nº de vidas
     this.lives = 3;
 
-    //used to create an invencibility time window after a death
+    //usado para permitir uma janela de invencibilidade no player
     this.canBeKilled = true;
 
     this.velocity = 300;
 
     this.timeToShoot = 0;
-    this.fireRate = 200;
+    this.fireRate = 700;
 
-    //this.bullets=[];
-
-    this.bulletsMaxsize = 10;
+    this.bulletsMaxsize = 5;
 
     this.bullets = this.scene.physics.add.group({
       maxSize: this.bulletsMaxsize,
